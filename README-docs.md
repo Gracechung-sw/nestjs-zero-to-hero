@@ -198,3 +198,9 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+### Request test using Insomnia
+
+#### Insomnia
+
+see https://medium.com/thefork/get-the-most-out-of-insomnia-to-effectively-test-your-api-8a81f1349ef6
