@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
+import { createTaskDto } from './dto/create-task.dto';
 import { Task } from './tasks.model';
 import { TasksService } from './tasks.service';
 
@@ -13,11 +14,7 @@ export class TasksController {
   }
 
   @Post()
-  createTask(
-    // Body validation: accept body properties only we need
-    @Body('title') title: string,
-    @Body('description') description: string,
-  ): Task {
-    return this.tasksService.createTask(title, description);
+  createTask(@Body() createTaskDto: createTaskDto): Task {
+    return this.tasksService.createTask(createTaskDto);
   }
 }
