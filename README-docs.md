@@ -154,6 +154,50 @@ export class TasksController {
 }
 ```
 
+### Defining a Data Transfer Objects (DTO)
+
+#### before
+
+```Typescript
+  @Post()
+  createTask(
+    @Body('title') title: string, // NEED TO FIX HERE
+    @Body('description') description: string, // NEED TO FIX HERE
+  ): Task {
+    return this.tasksService.createTask(title, description); // NEED TO FIX HERE
+  }
+```
+
+If we need to make changes to the shape of data,  
+for example, change the types of parameters or requirements change and need to add additional information to tasks ... etc.  
+To apply such change, we will have to change the implementation in multiple places.
+
+The better way is that we manage the shape of data in the main place,  
+and it flows through the different components of our application.  
+This is called DTO.
+
+DTO can be useful for data validation.  
+A DTO is NOT a model definition. It defines the shape of data for a specific case  
+It can be defined using an interface or a class. (class is recommended)
+
+#### after
+
+```Typescript
+export class createTaskDto {
+  title: string;
+  description: string;
+}
+
+```
+
+```Typescript
+@Post()
+createTask(@Body() createTaskDto: createTaskDto): Task {
+  return this.tasksService.createTask(createTaskDto);
+}
+
+```
+
 ---
 
 ## Lifecycle of request
