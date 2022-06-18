@@ -212,7 +212,7 @@ ex. ValidationPipe, ParseIntPipe, and Custom pipe Implementation.
 
 ###
 
-- Install [class-validator](https://github.com/typestack/class-validator) with `yarn add class-validator`
+- Install [class-validator](https://github.com/typestack/class-validator) with `yarn add class-validator class-transformer`
 - ***
 
 ## Lifecycle of request
