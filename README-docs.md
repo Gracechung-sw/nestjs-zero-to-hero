@@ -222,6 +222,32 @@ ex. ValidationPipe, ParseIntPipe, and Custom pipe Implementation.
 3. Handler handles the request. Perform operatons such as communication with a service. For example, retrieving an item from the database.
 4. Handler returns response value to client. Response can be of any type and even an exception.
 
+## Data Persistence - PostgreSQL and TypeORM
+
+### Start with Docker and Postgres, pgAdmin
+
+1. pgadmin installation
+
+see https://www.pgadmin.org/download/
+
+2. Start postgres in docker container
+
+```bash
+docker run --name postgres-nest -p 5432:5432 -e POSTGRES_PASSWORD=<your password> -d postgres
+```
+
+3. Setting pgadmin
+   Servers -> Register -> Server -> Set Name in General tab, and in Connection tab,
+   - Host: localhost
+   - POrt: 5432
+   - Maintenance database: postgres
+   - Username: postgres
+   - Password: <your password> (== POSTGRES_PASSWORD)
+
+### TypeORM
+
+- Install [typeorm](https://typeorm.io) with `yarn add typeorm @nestjs/typeorm pg`
+
 ---
 
 ## Running the app
