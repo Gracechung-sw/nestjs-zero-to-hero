@@ -198,7 +198,22 @@ createTask(@Body() createTaskDto: createTaskDto): Task {
 
 ```
 
----
+## Validation and Error handling with Nestjs Pipes
+
+Pipes operate on the arguments to be processed by the route handler, just before the handler is called.  
+Pipes can perform data transformation or data validation.
+Pipes can throw exceptions. Exceptions thrown will be handled by NestJS and parsed into an error response.
+ex. ValidationPipe, ParseIntPipe, and Custom pipe Implementation.
+
+### Custom pipe Implementation
+
+- Pipes are classes annotated with the `@Injectable()` decorator.
+-
+
+###
+
+- Install [class-validator](https://github.com/typestack/class-validator) with `yarn add class-validator`
+- ***
 
 ## Lifecycle of request
 
