@@ -1,19 +1,25 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Task, TaskStatus } from './tasks.model';
+import { TaskStatus } from './task-status.enum';
 
 import { v4 } from 'uuid';
 import { createTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
+import { TasksRepository } from './tasks.repository';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Task } from './tasks.entity';
 
 @Injectable()
 export class TasksService {
+  // Now we interact with a database, async operation.
+  constructor(
+    @InjectRepository(TasksRepository)
+    private tasksRepository: TasksRepository,
+  ) {}
   private tasks: Task[] = [];
-
   // If you don't define an accessor, public is default.
   getAllTasks(): Task[] {
     return this.tasks;
   }
-
   getTasksWithFilters(filterDto: GetTasksFilterDto): Task[] {
     const { status, search } = filterDto;
     let tasks = this.getAllTasks();
@@ -31,12 +37,13 @@ export class TasksService {
     return tasks;
   }
 
-  getTaskById(id: string): Task {
+  async getTaskById(id: string): Promise<Task> {
     // try to get task
     // If not found, throw an error 404 not found.
     // otherwise, return the found task.
-    const found = this.tasks.find((task) => task.id === id);
-    console.log(found);
+    const found = await this.tasksRepository.findOne({
+      where: { id: parseInt(id) },
+    });
     if (!found) {
       throw new NotFoundException(`Task with ID "${id}" not found`);
     } else {
@@ -44,16 +51,14 @@ export class TasksService {
     }
   }
 
-  createTask(createTaskDto: createTaskDto): Task {
+  async createTask(createTaskDto: createTaskDto): Promise<Task> {
     const { title, description } = createTaskDto;
-    const task: Task = {
-      id: v4(),
+    const task: Task = this.tasksRepository.create({
       title,
       description,
       status: TaskStatus.OPEN,
-    };
-
-    this.tasks.push(task);
+    });
+    await this.tasksRepository.save(task);
     return task;
   }
 

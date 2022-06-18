@@ -213,7 +213,6 @@ ex. ValidationPipe, ParseIntPipe, and Custom pipe Implementation.
 ###
 
 - Install [class-validator](https://github.com/typestack/class-validator) with `yarn add class-validator class-transformer`
-- ***
 
 ## Lifecycle of request
 
@@ -248,7 +247,12 @@ docker run --name postgres-nest -p 5432:5432 -e POSTGRES_PASSWORD=<your password
 
 - Install [typeorm](https://typeorm.io) with `yarn add typeorm @nestjs/typeorm pg`
 
----
+### Active Repord vs Data Mapper pattern
+
+see https://github.com/typeorm/typeorm/blob/master/docs/active-record-data-mapper.md
+
+- Active record: define all of the query methods inside the method itself.
+- Data mapper: nothing more than properties.
 
 ## Running the app
 
@@ -288,4 +292,4 @@ $ npm run test:cov
 
 #### Insomnia
 
-see https://medium.com/thefork/get-the-most-out-of-insomnia-to-effectively-test-your-api-8a81f1349ef6
+see https://medium.com/thefork/get-the-most-out-of-insomnia-to-effectively-test-your-api-8a81f1349ef6, https://apis.support.brightcove.com/general/use-insomnia-api-requests.html
