@@ -293,3 +293,20 @@ $ npm run test:cov
 #### Insomnia
 
 see https://medium.com/thefork/get-the-most-out-of-insomnia-to-effectively-test-your-api-8a81f1349ef6, https://apis.support.brightcove.com/general/use-insomnia-api-requests.html
+
+## Logging
+
+see https://docs.nestjs.com/techniques/logger
+
+- `Log`: General purpose logging of important information.
+- `Warninig`: Unhandled issue that is NOT fatal or destructive.
+- `Error`: Unhandled issue that is fatal or destructive for our system.
+- `Debug`: Useful information that can help us debug the logic in case of an error/warning. Intended for developers.
+
+Nest's built-in logger is used for monitoring Nest system behavior, and can also be useful for basic formatted text logging in your feature modules while in **development**
+
+but **production** applications often take advantage of dedicated logging modules like Winston. As with any standard Node.js application, you can take full advantage of such modules in Nest.
+
+### winston logger
+
+- Install [winston](https://github.com/gremo/nest-winston) with `yarn add nest-winston winston`

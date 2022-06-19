@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Logger,
 } from '@nestjs/common';
 import { createTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
@@ -17,11 +18,13 @@ import { TasksService } from './tasks.service';
 
 @Controller('tasks')
 export class TasksController {
+  private logger = new Logger('TasksController'); // This context make it easy to understand where our logs are coming from.
   // TODO: Study what Typescript Access modifier privide
   constructor(private tasksService: TasksService) {}
 
   @Get()
   getTasks(@Query() filterDto: GetTasksFilterDto): Promise<Task[]> {
+    this.logger.verbose(`filters: "${JSON.stringify(filterDto)}"`); // ${filterDto} is just [object Object] so If we want to print this object, wrap it with JSON.stringify
     return this.tasksService.getTasks(filterDto);
   }
 
