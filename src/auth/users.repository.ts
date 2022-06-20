@@ -9,13 +9,19 @@ import { EntityRepository, Repository } from 'typeorm';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { User } from './user.entity';
 
+import * as bcrypt from 'bcrypt';
+
 @EntityRepository(User)
 export class UsersRepository extends Repository<User> {
   private logger = new Logger('UsersRepository'); // This context make it easy to understand where our logs are coming from.
 
-  async createUser(authCredentialDto: AuthCredentialsDto): Promise<void> {
-    const { username, password } = authCredentialDto;
-    const user: User = this.create({ username, password });
+  async createUser(authCredentialsDto: AuthCredentialsDto): Promise<void> {
+    const { username, password } = authCredentialsDto;
+
+    const salt = await bcrypt.genSault();
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const user: User = this.create({ username, password: hashedPassword });
     // await this.save(user);
     try {
       await this.save(user);
@@ -26,7 +32,6 @@ export class UsersRepository extends Repository<User> {
       } else {
         throw new InternalServerErrorException();
       }
-      this.logger.error(error);
     }
   }
 }
