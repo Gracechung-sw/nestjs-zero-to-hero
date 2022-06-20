@@ -310,3 +310,11 @@ but **production** applications often take advantage of dedicated logging module
 ### winston logger
 
 - Install [winston](https://github.com/gremo/nest-winston) with `yarn add nest-winston winston`
+
+## Auth
+
+```bash
+nest g module auth
+nest g service auth
+nest g controller auth
+```
